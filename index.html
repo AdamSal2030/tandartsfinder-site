@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tandartsfinder.nl — tandartsen die wél nieuwe patiënten aannemen</title>
+<meta name="description" content="Vind een tandarts die nog nieuwe patiënten aanneemt. Kies uw stad, bekijk de praktijk en meld u in één minuut aan. Gratis, rechtstreeks bij de praktijk.">
+<link rel="canonical" href="https://tandartsfinder.nl/">
+<link rel="alternate" hreflang="en" href="https://tandartsfinder.nl/en">
+<link rel="icon" href="/assets/favicon.png">
+<meta property="og:title" content="Tandartsfinder.nl — tandartsen die wél nieuwe patiënten aannemen">
+<meta property="og:description" content="Kies uw stad, bekijk de praktijk en meld u in één minuut aan. Gratis en rechtstreeks.">
+<meta property="og:image" content="https://tandartsfinder.nl/assets/behandeling.jpg">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/style.css">
+<link rel="stylesheet" href="/assets/home.css">
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-tooth" viewBox="0 0 24 24"><path d="M12 5C10.4 3.4 8.5 2.9 6.9 3.4 4.8 4.1 3.5 6.3 3.5 9c0 2.3.6 4 1.2 6 .5 1.9.8 3.9 1.5 5 .6 1 1.9.9 2.3-.3.4-1.1.6-2.5.9-3.8.2-1 .8-1.7 2.6-1.7s2.4.7 2.6 1.7c.3 1.3.5 2.7.9 3.8.4 1.2 1.7 1.3 2.3.3.7-1.1 1-3.1 1.5-5 .6-2 1.2-3.7 1.2-6 0-2.7-1.3-4.9-3.4-5.6-1.6-.5-3.5 0-5.1 1.6Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="currentColor" opacity=".14"/><path d="m7.5 12.4 3 3 6-6.4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3.2 19 6v5.6c0 4.2-2.8 7.5-7 9.2-4.2-1.7-7-5-7-9.2V6l7-2.8Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-euro" viewBox="0 0 24 24"><path d="M17 6.5A6.5 6.5 0 0 0 6.7 9M17 17.5A6.5 6.5 0 0 1 6.7 15M4 10.5h9M4 13.5h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="header home-header">
+  <div class="wrap">
+    <a class="brand" href="/"><svg class="icon"><use href="#i-tooth"/></svg>tandartsfinder<em>.nl</em></a>
+    <nav class="nav">
+      <a href="#praktijken">Praktijken</a>
+      <a href="#hoe">Hoe werkt het</a>
+      <a class="lang" href="/en" hreflang="en" title="Read this page in English">EN</a>
+      <a class="btn btn-primary btn-small" href="#praktijken">Vind een tandarts</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero home-hero">
+  <div class="wrap">
+    <div class="badge">Gratis · rechtstreeks bij de praktijk</div>
+    <h1>Tandartsen die <mark>wél</mark> nieuwe patiënten aannemen</h1>
+    <p class="hero-sub">Zonder tandarts zitten is in Nederland heel gewoon geworden — praktijken zitten vol. Wij verzamelen de praktijken die nog plek hebben. Kies uw stad, bekijk de praktijk en meld u in één minuut aan.</p>
+    <form class="finder" id="finder" role="search" onsubmit="return false">
+      <label for="city"><svg class="icon"><use href="#i-pin"/></svg></label>
+      <select id="city" aria-label="Kies uw stad"><option value="">Alle steden</option></select>
+      <a class="btn btn-primary" href="#praktijken"><svg class="icon" width="18" height="18"><use href="#i-search"/></svg>Toon praktijken</a>
+    </form>
+    <ul class="checks hero-checks">
+      <li><svg class="icon"><use href="#i-check"/></svg><span><b>Geen wachtlijst-loterij</b> — alleen praktijken die nú aannemen</span></li>
+      <li><svg class="icon"><use href="#i-check"/></svg><span><b>Binnen 1 werkdag gebeld</b> door de praktijk zelf</span></li>
+      <li><svg class="icon"><use href="#i-check"/></svg><span><b>Vaste NZa-tarieven</b> — geen bemiddelingskosten voor u</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="praktijken">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="kicker">Nu plek</span>
+      <h2>Praktijken die nieuwe patiënten aannemen</h2>
+      <p class="intro" id="count"></p>
+    </div>
+    <div class="cols3 practices" id="list"></div>
+    <div class="nomatch" id="nomatch" hidden>
+      <h3>Nog geen praktijk in deze stad</h3>
+      <p>We breiden steeds uit. Kies een andere stad, of <a href="mailto:info@tandvacature.nl?subject=Tip%20praktijk">tip ons een praktijk</a> in uw buurt.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint" id="hoe">
+  <div class="wrap">
+    <div class="section-head"><span class="kicker">In 3 stappen</span><h2>Zo werkt het</h2></div>
+    <div class="steps">
+      <div><h3>Kies een praktijk</h3><p>Bekijk het team, de behandelingen en de beoordelingen van een praktijk die nog plek heeft.</p></div>
+      <div><h3>Meld u aan in 1 minuut</h3><p>Uw situatie, voor wie u zich aanmeldt en uw contactgegevens. Meer vragen we niet.</p></div>
+      <div><h3>De praktijk belt u</h3><p>Binnen 1 werkdag plant de praktijk uw eerste afspraak in en stuurt het inschrijfformulier.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head"><span class="kicker">Waarom Tandartsfinder</span><h2>Wij zoeken, u meldt zich aan</h2></div>
+    <div class="cols3">
+      <div class="feature"><div class="ic"><svg><use href="#i-search"/></svg></div><h3>Alleen praktijken met plek</h3><p>Geen lijst van 200 tandartsen die allemaal "vol" zeggen. Alleen praktijken die op dit moment nieuwe patiënten aannemen.</p></div>
+      <div class="feature"><div class="ic"><svg><use href="#i-euro"/></svg></div><h3>Gratis voor u</h3><p>U betaalt niets extra. De praktijk hanteert de vaste tarieven van de Nederlandse Zorgautoriteit, net als elke tandarts in Nederland.</p></div>
+      <div class="feature"><div class="ic"><svg><use href="#i-shield"/></svg></div><h3>Rechtstreeks en privé</h3><p>Uw aanmelding gaat direct naar de receptie van de praktijk. Wij verkopen geen gegevens en delen ze niet met andere praktijken.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tint">
+  <div class="wrap">
+    <div class="section-head"><span class="kicker">Veelgestelde vragen</span><h2>Goed om te weten</h2></div>
+    <div class="faq">
+      <details open><summary>Wat kost dit?</summary><div><p>Niets. Tandartsfinder.nl is gratis voor patiënten. U betaalt bij de praktijk de normale, landelijk vastgestelde tarieven.</p></div></details>
+      <details><summary>Weet ik zeker dat de praktijk mij aanneemt?</summary><div><p>De praktijken op deze site hebben aangegeven ruimte te hebben voor nieuwe patiënten. Het aantal plekken is niet oneindig — hoe eerder u zich aanmeldt, hoe eerder u aan de beurt bent.</p></div></details>
+      <details><summary>Ik heb nu pijn. Wat moet ik doen?</summary><div><p>Bij acute klachten wacht u niet op een aanmelding. Bel de praktijk direct of kijk op de spoedpagina van de praktijk; buiten openingstijden verwijzen zij u naar de spoeddienst.</p></div></details>
+      <details><summary>Kan ik mijn gezin in één keer aanmelden?</summary><div><p>Ja. In het formulier geeft u aan of u zich alleen, met partner of als gezin aanmeldt.</p></div></details>
+      <details><summary>Mijn stad staat er niet bij</summary><div><p>We sluiten steeds meer praktijken aan. Mail ons de naam van uw tandarts of een praktijk in uw buurt — dan nemen wij contact met ze op.</p></div></details>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap">
+    <a class="brand" href="/"><svg class="icon"><use href="#i-tooth"/></svg>tandartsfinder<em>.nl</em></a>
+    <div><a href="#praktijken">Praktijken</a> · <a href="/privacy">Privacy</a> · <a href="mailto:info@tandvacature.nl">Contact</a></div>
+    <p>Tandartsfinder.nl brengt mensen die een tandarts zoeken in contact met praktijken die nieuwe patiënten aannemen. Uw aanmelding gaat rechtstreeks naar de gekozen praktijk. Met spoed hulp nodig? Bel uw praktijk of de spoeddienst in uw regio.</p>
+  </div>
+</footer>
+
+<script src="/data/practices.js"></script>
+<script src="/assets/home.js"></script>
+</body>
+</html>
