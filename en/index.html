@@ -79,6 +79,7 @@
           <div class="fields">
             <div class="field"><label for="p-naam">Full name</label><input type="text" id="p-naam" name="naam" autocomplete="name" placeholder="E.g. Jane Smith" required><span class="error">Please enter your name.</span></div>
             <div class="field"><label for="p-postcode">Postcode</label><input type="text" id="p-postcode" name="postcode" autocomplete="postal-code" placeholder="1234 AB" required><span class="hint">So we know which region to search in.</span><span class="error">Please enter a valid Dutch postcode.</span></div>
+            <div class="field"><label for="p-plaats">Which city are you looking in?</label><select id="p-plaats" name="plaats" required><option value="">Choose your city…</option></select><span class="error">Please choose your city.</span></div>
             <div class="field"><label for="p-voor_wie">Who are you searching for?</label><select id="p-voor_wie" name="voor_wie" required><option value="mijzelf">Myself</option><option value="gezin">My family / partner</option><option value="anders">Someone else</option></select></div>
             <div class="field"><label for="p-situatie">What is your situation? <span class="opt">(optional)</span></label><select id="p-situatie" name="situatie"><option value="">Choose…</option><option value="geen_tandarts">I have no dentist</option><option value="overstappen">I want to switch</option><option value="verhuisd">I have moved</option><option value="pijn">I am in pain / urgent</option><option value="anders">Other</option></select></div>
             <div class="field"><label for="p-email">Email address</label><input type="email" id="p-email" name="email" autocomplete="email" placeholder="name@example.com" required><span class="error">Please enter a valid email address.</span></div>
@@ -178,6 +179,7 @@
   </div>
 </footer>
 
+<script src="/assets/cities.js"></script>
 <script src="/assets/vendor/flatpickr.min.js"></script>
 <script src="/assets/home.js"></script>
 </body>

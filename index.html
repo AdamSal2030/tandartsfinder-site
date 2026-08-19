@@ -79,6 +79,7 @@
           <div class="fields">
             <div class="field"><label for="p-naam">Voor- en achternaam</label><input type="text" id="p-naam" name="naam" autocomplete="name" placeholder="Bijv. Jan de Vries" required><span class="error">Vul uw naam in.</span></div>
             <div class="field"><label for="p-postcode">Postcode</label><input type="text" id="p-postcode" name="postcode" autocomplete="postal-code" placeholder="1234 AB" required><span class="hint">Zo weten we in welke regio we moeten zoeken.</span><span class="error">Vul een geldige Nederlandse postcode in.</span></div>
+            <div class="field"><label for="p-plaats">In welke stad zoekt u?</label><select id="p-plaats" name="plaats" required><option value="">Kies uw stad…</option></select><span class="error">Kies uw stad.</span></div>
             <div class="field"><label for="p-voor_wie">Voor wie zoekt u?</label><select id="p-voor_wie" name="voor_wie" required><option value="mijzelf">Mijzelf</option><option value="gezin">Mijn gezin / partner</option><option value="anders">Iemand anders</option></select></div>
             <div class="field"><label for="p-situatie">Wat is uw situatie? <span class="opt">(optioneel)</span></label><select id="p-situatie" name="situatie"><option value="">Kies…</option><option value="geen_tandarts">Ik heb geen tandarts</option><option value="overstappen">Ik wil overstappen</option><option value="verhuisd">Ik ben verhuisd</option><option value="pijn">Ik heb pijn / spoed</option><option value="anders">Anders</option></select></div>
             <div class="field"><label for="p-email">E-mailadres</label><input type="email" id="p-email" name="email" autocomplete="email" placeholder="naam@voorbeeld.nl" required><span class="error">Vul een geldig e-mailadres in.</span></div>
@@ -178,6 +179,7 @@
   </div>
 </footer>
 
+<script src="/assets/cities.js"></script>
 <script src="/assets/vendor/flatpickr.min.js"></script>
 <script src="/assets/vendor/flatpickr-nl.js"></script>
 <script src="/assets/home.js"></script>

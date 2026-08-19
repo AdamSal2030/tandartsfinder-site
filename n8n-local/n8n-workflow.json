@@ -70,6 +70,7 @@
             "Phone": "={{ $json.body.telefoon }}",
             "Email": "={{ $json.body.email }}",
             "Postcode": "={{ $json.body.postcode }}",
+            "City": "={{ $json.body.plaats }}",
             "For whom": "={{ $json.body.voor_wie }}",
             "Situation": "={{ $json.body.situatie }}",
             "Available from": "={{ $json.body.beschikbaar_van }}",

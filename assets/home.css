@@ -26,6 +26,7 @@
 .field select:focus,.field textarea:focus{outline:0;border-color:var(--blue);box-shadow:0 0 0 4px rgba(27,59,139,.12)}
 .field textarea{resize:vertical;min-height:88px}
 .field .opt{font-weight:500;color:var(--muted)}
+.field.bad select{border-color:var(--red);background:#fff5f5}
 .leadform .done h3{margin:0 0 8px}
 .times{display:flex;align-items:center;gap:10px}
 .times span{color:var(--muted)}

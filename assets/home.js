@@ -11,6 +11,9 @@
       locale: (!EN && flatpickr.l10ns.nl) ? 'nl' : 'default'
     });
   }
+  var citySel = document.getElementById('p-plaats');
+  if (citySel && window.CITIES) citySel.innerHTML += CITIES.map(function (c) { return '<option>' + c + '</option>'; }).join('');
+
   ['p-tijd-van', 'p-tijd-tot'].forEach(function (tid) {
     var el = document.getElementById(tid);
     if (el && window.flatpickr) flatpickr(el, { enableTime: true, noCalendar: true, dateFormat: 'H:i', time_24hr: true, minuteIncrement: 15 });

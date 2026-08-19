@@ -7,7 +7,7 @@
 // With nothing configured the lead is only written to the Vercel function logs.
 
 const REQUIRED = {
-  patient: ['naam', 'email', 'telefoon', 'postcode'],
+  patient: ['naam', 'email', 'telefoon', 'postcode', 'plaats'],
   clinic: ['praktijknaam', 'naam', 'email', 'telefoon', 'plaats']
 };
 const FIELDS = ['type', 'naam', 'email', 'telefoon', 'toelichting', 'postcode', 'voor_wie', 'situatie',
