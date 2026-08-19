@@ -1,0 +1,2 @@
+Name,Phone,Email,Postcode,City,For whom,Situation,Notes,Language,Available from,Available until,Available time from,Available time until,UTM source,UTM medium,UTM campaign,UTM content,fbclid,gclid,Page,Submitted at,Status
+Example Person,0612345678,example@example.com,1234 AB,Zwolle,mijzelf,geen_tandarts,delete this row,nl,2026-09-01,2026-09-14,09:00,17:30,google,cpc,test,ad1,,,https://tandartsfinder.nl/,2026-08-19T22:00:00Z,New
