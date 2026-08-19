@@ -1,0 +1,160 @@
+{
+  "name": "Tandartsfinder.nl leads → Airtable (Patiënten / Praktijken)",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tandartsfinder-homepage-lead",
+        "responseMode": "onReceived",
+        "options": {}
+      },
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [0, 0],
+      "webhookId": "tandartsfinder-homepage-lead"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  { "leftValue": "={{ $json.body.type }}", "rightValue": "patient", "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "patient"
+            },
+            {
+              "conditions": {
+                "options": { "caseSensitive": true, "leftValue": "", "typeValidation": "strict" },
+                "conditions": [
+                  { "leftValue": "={{ $json.body.type }}", "rightValue": "clinic", "operator": { "type": "string", "operation": "equals" } }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "clinic"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Switch: type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [260, 0]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "mode": "id",
+          "value": "app36dHMPHAowaBxo"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "",
+          "cachedResultName": "Patiënten"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.body.naam }}",
+            "Phone": "={{ $json.body.telefoon }}",
+            "Email": "={{ $json.body.email }}",
+            "Postcode": "={{ $json.body.postcode }}",
+            "For whom": "={{ $json.body.voor_wie }}",
+            "Situation": "={{ $json.body.situatie }}",
+            "Notes": "={{ $json.body.toelichting }}",
+            "Language": "={{ $json.body.taal }}",
+            "UTM source": "={{ $json.body.utm_source }}",
+            "UTM medium": "={{ $json.body.utm_medium }}",
+            "UTM campaign": "={{ $json.body.utm_campaign }}",
+            "UTM content": "={{ $json.body.utm_content }}",
+            "fbclid": "={{ $json.body.fbclid }}",
+            "gclid": "={{ $json.body.gclid }}",
+            "Page": "={{ $json.body.pagina }}",
+            "Submitted at": "={{ $json.body.tijdstip }}",
+            "Status": "New"
+          }
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "name": "Airtable: Patiënten",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [520, -120],
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "base": {
+          "__rl": true,
+          "mode": "id",
+          "value": "app36dHMPHAowaBxo"
+        },
+        "table": {
+          "__rl": true,
+          "mode": "list",
+          "value": "",
+          "cachedResultName": "Praktijken"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Practice": "={{ $json.body.praktijknaam }}",
+            "City": "={{ $json.body.plaats }}",
+            "Website": "={{ $json.body.praktijk_website }}",
+            "Dentists": "={{ $json.body.aantal_tandartsen }}",
+            "Name": "={{ $json.body.naam }}",
+            "Phone": "={{ $json.body.telefoon }}",
+            "Email": "={{ $json.body.email }}",
+            "Notes": "={{ $json.body.toelichting }}",
+            "Language": "={{ $json.body.taal }}",
+            "UTM source": "={{ $json.body.utm_source }}",
+            "UTM medium": "={{ $json.body.utm_medium }}",
+            "UTM campaign": "={{ $json.body.utm_campaign }}",
+            "UTM content": "={{ $json.body.utm_content }}",
+            "fbclid": "={{ $json.body.fbclid }}",
+            "gclid": "={{ $json.body.gclid }}",
+            "Page": "={{ $json.body.pagina }}",
+            "Submitted at": "={{ $json.body.tijdstip }}",
+            "Status": "New"
+          }
+        },
+        "options": {
+          "typecast": true
+        }
+      },
+      "name": "Airtable: Praktijken",
+      "type": "n8n-nodes-base.airtable",
+      "typeVersion": 2.1,
+      "position": [520, 120],
+      "onError": "continueRegularOutput"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [[{ "node": "Switch: type", "type": "main", "index": 0 }]]
+    },
+    "Switch: type": {
+      "main": [
+        [{ "node": "Airtable: Patiënten", "type": "main", "index": 0 }],
+        [{ "node": "Airtable: Praktijken", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
