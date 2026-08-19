@@ -1,19 +1,11 @@
 (function () {
-  var EN = (document.documentElement.lang || 'nl').slice(0, 2) === 'en';
+  var LANG = (document.documentElement.lang || 'nl').slice(0, 2), EN = LANG === 'en';
   var T = EN
-    ? { pill: 'Accepting new patients', go: 'View & register →', on: 'on', one: ' practice', many: ' practices', inCity: ' in ', tail: ' accepting new patients' }
-    : { pill: 'Nu plek voor nieuwe patiënten', go: 'Bekijk & meld aan →', on: 'op', one: ' praktijk', many: ' praktijken', inCity: ' in ', tail: ' met plek voor nieuwe patiënten' };
-  var all = (window.PRACTICES || []).filter(function (p) { return p.accepting !== false; });
-  var list = document.getElementById('list'), count = document.getElementById('count'),
-      nomatch = document.getElementById('nomatch'), select = document.getElementById('city');
+    ? { pill: 'Accepting new patients', go: 'View & register →', on: 'on', sending: 'Sending…' }
+    : { pill: 'Nu plek voor nieuwe patiënten', go: 'Bekijk & meld aan →', on: 'op', sending: 'Bezig met versturen…' };
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
 
-  // city dropdown from data
-  var cities = all.map(function (p) { return p.city; }).filter(function (c, i, a) { return a.indexOf(c) === i; }).sort();
-  cities.forEach(function (c) { var o = document.createElement('option'); o.value = c; o.textContent = c; select.appendChild(o); });
-  var fromUrl = new URLSearchParams(location.search).get('stad');
-  if (fromUrl && cities.indexOf(fromUrl) > -1) select.value = fromUrl;
-
+  /* ---- featured practice card(s) ---- */
   function card(p) {
     return '<a class="practice" href="' + esc(EN && p.url_en ? p.url_en : p.url) + '">' +
       '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy">' +
@@ -23,17 +15,47 @@
       '<div class="foot">' + (p.rating ? '<span class="rating"><span class="stars" aria-hidden="true">★★★★★</span> <b>' + esc(p.rating) + '</b> ' + T.on + ' ' + esc(p.ratingSource || '') + '</span>' : '<span></span>') +
       '<span class="go">' + T.go + '</span></div></div></a>';
   }
+  document.getElementById('list').innerHTML = (window.PRACTICES || []).filter(function (p) { return p.accepting !== false; }).map(card).join('');
 
-  function render() {
-    var city = select.value;
-    var shown = city ? all.filter(function (p) { return p.city === city; }) : all;
-    list.innerHTML = shown.map(card).join('');
-    nomatch.hidden = shown.length > 0;
-    var noun = shown.length === 1 ? T.one : T.many;
-    count.textContent = shown.length ? shown.length + noun + (city ? T.inCity + city : T.tail) : '';
-    var u = new URL(location); city ? u.searchParams.set('stad', city) : u.searchParams.delete('stad');
-    history.replaceState(null, '', u);
+  /* ---- lead forms (patient + clinic) → POST /api/lead ---- */
+  var params = new URLSearchParams(location.search), attr = {};
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid', 'gclid'].forEach(function (k) { if (params.get(k)) attr[k] = params.get(k); });
+
+  function mark(el, bad) { var f = el.closest('.field'); if (f) f.classList.toggle('bad', !!bad); return !bad; }
+  function valid(form) {
+    var ok = true;
+    form.querySelectorAll('[required]').forEach(function (el) {
+      var v = el.value.trim(), bad;
+      if (el.type === 'checkbox') bad = !el.checked;
+      else if (el.type === 'email') bad = !/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(v);
+      else if (el.type === 'tel') bad = !/^\+?[0-9]{8,15}$/.test(v.replace(/[\s\-().]/g, ''));
+      else if (el.name === 'postcode') {
+        v = v.toUpperCase().replace(/\s+/g, ''); bad = !/^[1-9][0-9]{3}[A-Z]{2}$/.test(v);
+        if (!bad) el.value = v.slice(0, 4) + ' ' + v.slice(4);
+      } else bad = !v;
+      ok = mark(el, bad) && ok;
+    });
+    return ok;
   }
-  select.addEventListener('change', render);
-  render();
+
+  document.querySelectorAll('form.leadform').forEach(function (form) {
+    form.addEventListener('input', function (e) { mark(e.target, false); });
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!valid(form)) { var b = form.querySelector('.bad'); if (b) b.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
+      var btn = form.querySelector('[type=submit]'), label = btn.textContent, err = form.querySelector('.formerror');
+      btn.disabled = true; btn.textContent = T.sending; err.classList.remove('on');
+      var data = { taal: LANG, pagina: location.href, tijdstip: new Date().toISOString() };
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+      Object.assign(data, attr);
+      fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { if (!r.ok) throw new Error(r.status); })
+        .then(function () {
+          form.querySelector('.fields').hidden = true;
+          form.querySelector('.done').hidden = false;
+          form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        })
+        .catch(function () { btn.disabled = false; btn.textContent = label; err.classList.add('on'); });
+    });
+  });
 })();

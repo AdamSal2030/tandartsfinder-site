@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tandartsfinder.nl — dentists that are accepting new patients</title>
-<meta name="description" content="Find a dentist in the Netherlands that is still accepting new patients. Pick your city, view the practice and register in one minute. Free, directly with the practice.">
+<meta name="description" content="Find a dentist in the Netherlands that is still accepting new patients. View the practice and register in one minute, or leave your search request. Practice with room? Register. Free, direct.">
 <link rel="canonical" href="https://tandartsfinder.nl/en">
 <link rel="alternate" hreflang="nl" href="https://tandartsfinder.nl/">
 <link rel="icon" href="/assets/favicon.png">
 <meta property="og:title" content="Tandartsfinder.nl — dentists that are accepting new patients">
-<meta property="og:description" content="Pick your city, view the practice and register in one minute. Free and direct.">
+<meta property="og:description" content="View the practice and register in one minute. Practice with room? Register. Free and direct.">
 <meta property="og:image" content="https://tandartsfinder.nl/assets/behandeling.jpg">
 <meta property="og:type" content="website">
 <link rel="stylesheet" href="/assets/style.css">
@@ -33,8 +33,9 @@
     <nav class="nav">
       <a href="#praktijken">Practices</a>
       <a href="#hoe">How it works</a>
+      <a href="#praktijk-aanmelden">For practices</a>
       <a class="lang" href="/" hreflang="nl" title="Lees deze pagina in het Nederlands">NL</a>
-      <a class="btn btn-primary btn-small" href="#praktijken">Find a dentist</a>
+      <a class="btn btn-primary btn-small" href="#zoek">Find a dentist</a>
     </nav>
   </div>
 </header>
@@ -43,12 +44,11 @@
   <div class="wrap">
     <div class="badge">Free · directly with the practice</div>
     <h1>Dentists that <mark>are</mark> accepting new patients</h1>
-    <p class="hero-sub">Being without a dentist has become normal in the Netherlands — practices are full. We collect the ones that still have room. Pick your city, view the practice and register in one minute. English spoken.</p>
-    <form class="finder" id="finder" role="search" onsubmit="return false">
-      <label for="city"><svg class="icon"><use href="#i-pin"/></svg></label>
-      <select id="city" aria-label="Choose your city"><option value="">All cities</option></select>
-      <a class="btn btn-primary" href="#praktijken"><svg class="icon" width="18" height="18"><use href="#i-search"/></svg>Show practices</a>
-    </form>
+    <p class="hero-sub">Being without a dentist has become normal in the Netherlands — practices are full. We collect the ones that still have room and connect patients and practices directly. English spoken.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#zoek"><svg class="icon" width="18" height="18"><use href="#i-search"/></svg>I am looking for a dentist</a>
+      <a class="btn btn-outline" href="#praktijk-aanmelden"><svg class="icon" width="18" height="18"><use href="#i-tooth"/></svg>Register your practice</a>
+    </div>
     <ul class="checks hero-checks">
       <li><svg class="icon"><use href="#i-check"/></svg><span><b>No waiting-list lottery</b> — only practices accepting right now</span></li>
       <li><svg class="icon"><use href="#i-check"/></svg><span><b>Called within 1 working day</b> by the practice itself</span></li>
@@ -62,12 +62,83 @@
     <div class="section-head">
       <span class="kicker">Room now</span>
       <h2>Practices accepting new patients</h2>
-      <p class="intro" id="count"></p>
+      <p class="intro">View the practice and register directly. Not near you? <a href="#zoek">Leave your details</a> — we search for you.</p>
     </div>
-    <div class="cols3 practices" id="list"></div>
-    <div class="nomatch" id="nomatch" hidden>
-      <h3>No practice in this city yet</h3>
-      <p>We keep expanding. Choose another city, or <a href="mailto:info@tandvacature.nl?subject=Tip%20practice">tip us a practice</a> near you.</p>
+    <div class="practices" id="list"></div>
+  </div>
+</section>
+
+<section class="section section--tint lead" id="zoek">
+  <div class="wrap">
+    <div class="section-head"><span class="kicker">For patients</span><h2>I am looking for a dentist</h2>
+      <p class="intro">No practice near you on this site yet? Leave your details. As soon as a practice in your region has room, you are the first to hear.</p></div>
+    <div class="cols2">
+      <div>
+        <ul class="checks">
+          <li><svg class="icon"><use href="#i-check"/></svg><span><b>Free and without obligation</b> — nothing to sign up for</span></li>
+          <li><svg class="icon"><use href="#i-check"/></svg><span><b>We actively search</b> for a practice with room near you</span></li>
+          <li><svg class="icon"><use href="#i-check"/></svg><span><b>Also for your family</b> — tell us who you are searching for</span></li>
+          <li><svg class="icon"><use href="#i-shield"/></svg><span><b>Private</b> — your details only go to the practice that accepts you</span></li>
+        </ul>
+      </div>
+      <form class="card leadform" id="form-patient" novalidate>
+        <div class="card-head"><h2>Leave a search request</h2><p>Takes about 1 minute.</p></div>
+        <div class="card-body">
+          <input type="hidden" name="type" value="patient">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+          <div class="fields">
+            <div class="field"><label for="p-naam">Full name</label><input type="text" id="p-naam" name="naam" autocomplete="name" placeholder="E.g. Jane Smith" required><span class="error">Please enter your name.</span></div>
+            <div class="field"><label for="p-postcode">Postcode</label><input type="text" id="p-postcode" name="postcode" autocomplete="postal-code" placeholder="1234 AB" required><span class="hint">So we know which region to search in.</span><span class="error">Please enter a valid Dutch postcode.</span></div>
+            <div class="field"><label for="p-voor_wie">Who are you searching for?</label><select id="p-voor_wie" name="voor_wie" required><option value="mijzelf">Myself</option><option value="gezin">My family / partner</option><option value="anders">Someone else</option></select></div>
+            <div class="field"><label for="p-situatie">What is your situation? <span class="opt">(optional)</span></label><select id="p-situatie" name="situatie"><option value="">Choose…</option><option value="geen_tandarts">I have no dentist</option><option value="overstappen">I want to switch</option><option value="verhuisd">I have moved</option><option value="pijn">I am in pain / urgent</option><option value="anders">Other</option></select></div>
+            <div class="field"><label for="p-email">Email address</label><input type="email" id="p-email" name="email" autocomplete="email" placeholder="name@example.com" required><span class="error">Please enter a valid email address.</span></div>
+            <div class="field"><label for="p-telefoon">Phone number</label><input type="tel" id="p-telefoon" name="telefoon" autocomplete="tel" placeholder="06 12345678" required><span class="error">Please enter a valid phone number.</span></div>
+            <div class="field"><label for="p-toelichting">Comments <span class="opt">(optional)</span></label><textarea id="p-toelichting" name="toelichting" rows="3" placeholder="E.g. preference for an English-speaking dentist"></textarea></div>
+            <label class="consent field"><input type="checkbox" name="akkoord" value="ja" required><span>Yes, Tandartsfinder.nl may contact me about my search request and share my details with a practice that has room. See the <a href="/privacy" target="_blank" rel="noopener">privacy statement (Dutch)</a>.<span class="error">You need to agree to continue.</span></span></label>
+            <div class="formerror">Sending failed. Check your connection and try again.</div>
+            <button type="submit" class="btn btn-primary btn-block">Send my search request</button>
+          </div>
+          <div class="done" hidden><div class="ok"><svg><use href="#i-check"/></svg></div><h3>We received your request</h3><p>As soon as a practice near you has room, we will contact you.</p></div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="section lead" id="praktijk-aanmelden">
+  <div class="wrap">
+    <div class="section-head"><span class="kicker">For practices</span><h2>Register your practice</h2>
+      <p class="intro">Does your practice have room for new patients? We connect you with people in your region looking for a dentist. No obligation — we contact you within 1 working day.</p></div>
+    <div class="cols2">
+      <div>
+        <ul class="checks">
+          <li><svg class="icon"><use href="#i-check"/></svg><span><b>Your own practice page</b> on tandartsfinder.nl, in Dutch and English</span></li>
+          <li><svg class="icon"><use href="#i-check"/></svg><span><b>Registrations straight to your front desk</b> — no middle step</span></li>
+          <li><svg class="icon"><use href="#i-check"/></svg><span><b>You set the pace</b> — switch off as soon as you are full</span></li>
+          <li><svg class="icon"><use href="#i-clock"/></svg><span><b>Within 1 working day</b> we get in touch</span></li>
+        </ul>
+      </div>
+      <form class="card leadform" id="form-clinic" novalidate>
+        <div class="card-head"><h2>Register practice</h2><p>A no-obligation introduction.</p></div>
+        <div class="card-body">
+          <input type="hidden" name="type" value="clinic">
+          <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+          <div class="fields">
+            <div class="field"><label for="c-praktijknaam">Practice name</label><input type="text" id="c-praktijknaam" name="praktijknaam" autocomplete="organization" placeholder="E.g. Tandartspraktijk De Lange" required><span class="error">Please enter the practice name.</span></div>
+            <div class="field"><label for="c-plaats">City</label><input type="text" id="c-plaats" name="plaats" autocomplete="address-level2" placeholder="E.g. Groningen" required><span class="error">Please enter the city.</span></div>
+            <div class="field"><label for="c-website">Website <span class="opt">(optional)</span></label><input type="url" id="c-website" name="praktijk_website" autocomplete="url" placeholder="https://www.yourpractice.nl"></div>
+            <div class="field"><label for="c-aantal">Number of dentists <span class="opt">(optional)</span></label><select id="c-aantal" name="aantal_tandartsen"><option value="">Choose…</option><option value="1">1</option><option value="2-3">2–3</option><option value="4-6">4–6</option><option value="7+">7 or more</option></select></div>
+            <div class="field"><label for="c-naam">Your name</label><input type="text" id="c-naam" name="naam" autocomplete="name" placeholder="Contact person" required><span class="error">Please enter your name.</span></div>
+            <div class="field"><label for="c-email">Email address</label><input type="email" id="c-email" name="email" autocomplete="email" placeholder="info@yourpractice.nl" required><span class="error">Please enter a valid email address.</span></div>
+            <div class="field"><label for="c-telefoon">Phone number</label><input type="tel" id="c-telefoon" name="telefoon" autocomplete="tel" placeholder="050 1234567" required><span class="error">Please enter a valid phone number.</span></div>
+            <div class="field"><label for="c-toelichting">Comments <span class="opt">(optional)</span></label><textarea id="c-toelichting" name="toelichting" rows="3" placeholder="E.g. how many new patients you can accept"></textarea></div>
+            <label class="consent field"><input type="checkbox" name="akkoord" value="ja" required><span>Yes, Tandartsfinder.nl may contact me about this registration. See the <a href="/privacy" target="_blank" rel="noopener">privacy statement (Dutch)</a>.<span class="error">You need to agree to continue.</span></span></label>
+            <div class="formerror">Sending failed. Check your connection and try again.</div>
+            <button type="submit" class="btn btn-primary btn-block">Register my practice</button>
+          </div>
+          <div class="done" hidden><div class="ok"><svg><use href="#i-check"/></svg></div><h3>Thank you for registering</h3><p>We will contact you <strong>within 1 working day</strong> to get acquainted.</p></div>
+        </div>
+      </form>
     </div>
   </div>
 </section>
@@ -102,7 +173,7 @@
       <details><summary>Am I sure the practice will accept me?</summary><div><p>The practices on this site have indicated they have room for new patients. Places are not unlimited — the sooner you register, the sooner your turn comes.</p></div></details>
       <details><summary>I am in pain right now. What should I do?</summary><div><p>For acute complaints do not wait for a registration. Call the practice directly or check its emergency page; outside opening hours they refer you to the emergency service.</p></div></details>
       <details><summary>Can I register my family in one go?</summary><div><p>Yes. In the form you indicate whether you register alone, with a partner or as a family.</p></div></details>
-      <details><summary>My city is not listed</summary><div><p>We are adding practices all the time. Email us the name of your dentist or a practice near you — we will contact them.</p></div></details>
+      <details><summary>My city is not listed</summary><div><p>We are adding practices all the time. <a href="#zoek">Leave your details</a> — as soon as a practice with room opens up near you, you will hear from us. Know a practice with room? Point them to <a href="#praktijk-aanmelden">the registration form for practices</a>.</p></div></details>
     </div>
   </div>
 </section>
@@ -110,7 +181,7 @@
 <footer class="footer">
   <div class="wrap">
     <a class="brand" href="/"><svg class="icon"><use href="#i-tooth"/></svg>tandartsfinder<em>.nl</em></a>
-    <div><a href="/">Nederlands</a> · <a href="#praktijken">Practices</a> · <a href="/privacy">Privacy (Dutch)</a> · <a href="mailto:info@tandvacature.nl">Contact</a></div>
+    <div><a href="/">Nederlands</a> · <a href="#praktijken">Practices</a> · <a href="#zoek">Find a dentist</a> · <a href="#praktijk-aanmelden">For practices</a> · <a href="/privacy">Privacy (Dutch)</a> · <a href="mailto:info@tandvacature.nl">Contact</a></div>
     <p>Tandartsfinder.nl connects people looking for a dentist with practices that accept new patients. Your registration goes directly to the chosen practice. Need urgent help? Call your practice or the emergency dental service in your region.</p>
   </div>
 </footer>
