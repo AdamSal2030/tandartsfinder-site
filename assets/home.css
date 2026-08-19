@@ -17,26 +17,6 @@
   .hero-checks{flex-direction:column;align-items:flex-start;gap:10px;max-width:420px;margin:0 auto;text-align:left}
 }
 
-/* practice cards */
-.practices{display:grid;max-width:420px;margin:0 auto}
-.practice{display:flex;flex-direction:column;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);text-decoration:none;color:inherit;transition:.16s}
-.practice:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:#c9d4ee}
-.practice img{width:100%;height:170px;object-fit:cover;background:#eef3ff}
-.practice > div{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
-.practice .pill{display:inline-flex;align-items:center;gap:7px;align-self:flex-start;background:var(--green-soft);color:var(--green-dark);font-weight:800;font-size:12.5px;padding:5px 11px;border-radius:999px;margin-bottom:10px}
-.practice .pill::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--green)}
-.practice h3{margin:0 0 2px;font-size:19px}
-.practice .loc{font-size:14px;color:var(--muted);margin:0 0 12px}
-.practice ul{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:6px;font-size:14.5px}
-.practice li{display:flex;gap:8px;align-items:flex-start}
-.practice li .icon{width:18px;height:18px;color:var(--green);margin-top:2px}
-.practice .foot{margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.practice .rating,.practice .go{white-space:nowrap}
-.practice .rating{font-size:14px;color:var(--ink)}
-.practice .rating b{font-size:16px}
-.practice .go{color:var(--blue);font-weight:700;font-size:15px}
-
-
 /* lead forms (patient + clinic) */
 .lead .cols2{align-items:start}
 .lead .cols2 > div{padding-top:8px}
@@ -47,3 +27,15 @@
 .field textarea{resize:vertical;min-height:88px}
 .field .opt{font-weight:500;color:var(--muted)}
 .leadform .done h3{margin:0 0 8px}
+
+/* flatpickr — themed to match the site */
+.flatpickr-calendar{font-family:inherit;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-lg)}
+.flatpickr-day.selected,.flatpickr-day.startRange,.flatpickr-day.endRange,
+.flatpickr-day.selected:hover,.flatpickr-day.startRange:hover,.flatpickr-day.endRange:hover{background:var(--green);border-color:var(--green);color:#fff}
+.flatpickr-day.inRange{background:var(--green-soft);border-color:var(--green-soft);box-shadow:-5px 0 0 var(--green-soft),5px 0 0 var(--green-soft)}
+.flatpickr-day.startRange.selected,.flatpickr-day.selected.startRange + .flatpickr-day.endRange:not(:nth-child(7n+1)),
+.flatpickr-day.startRange + .flatpickr-day.endRange:not(:nth-child(7n+1)){box-shadow:-10px 0 0 var(--green)}
+.flatpickr-day.today:not(.selected):not(.startRange):not(.endRange){border-color:var(--blue)}
+.flatpickr-day:hover:not(.selected):not(.startRange):not(.endRange):not(.inRange){background:#f7f9ff;border-color:var(--line)}
+.flatpickr-months .flatpickr-prev-month:hover svg,.flatpickr-months .flatpickr-next-month:hover svg{fill:var(--green)}
+.flatpickr-current-month .flatpickr-monthDropdown-months,.flatpickr-current-month input.cur-year{font-weight:800;color:var(--ink)}

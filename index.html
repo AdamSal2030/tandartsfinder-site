@@ -12,6 +12,7 @@
 <meta property="og:description" content="Bekijk de praktijk en meld u in één minuut aan. Praktijk met plek? Meld u aan. Gratis en rechtstreeks.">
 <meta property="og:image" content="https://tandartsfinder.nl/assets/behandeling.jpg">
 <meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/vendor/flatpickr.min.css">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/assets/home.css">
 </head>
@@ -31,7 +32,6 @@
   <div class="wrap">
     <a class="brand" href="/"><svg class="icon"><use href="#i-tooth"/></svg>tandartsfinder<em>.nl</em></a>
     <nav class="nav">
-      <a href="#praktijken">Praktijken</a>
       <a href="#hoe">Hoe werkt het</a>
       <a href="#praktijk-aanmelden">Voor praktijken</a>
       <a class="lang" href="/en" hreflang="en" title="Read this page in English">EN</a>
@@ -57,16 +57,6 @@
   </div>
 </section>
 
-<section class="section" id="praktijken">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Nu plek</span>
-      <h2>Praktijken die nieuwe patiënten aannemen</h2>
-      <p class="intro">Bekijk de praktijk en meld u direct aan. Niet in uw buurt? <a href="#zoek">Laat uw gegevens achter</a> — wij zoeken voor u.</p>
-    </div>
-    <div class="practices" id="list"></div>
-  </div>
-</section>
 
 <section class="section section--tint lead" id="zoek">
   <div class="wrap">
@@ -93,6 +83,7 @@
             <div class="field"><label for="p-situatie">Wat is uw situatie? <span class="opt">(optioneel)</span></label><select id="p-situatie" name="situatie"><option value="">Kies…</option><option value="geen_tandarts">Ik heb geen tandarts</option><option value="overstappen">Ik wil overstappen</option><option value="verhuisd">Ik ben verhuisd</option><option value="pijn">Ik heb pijn / spoed</option><option value="anders">Anders</option></select></div>
             <div class="field"><label for="p-email">E-mailadres</label><input type="email" id="p-email" name="email" autocomplete="email" placeholder="naam@voorbeeld.nl" required><span class="error">Vul een geldig e-mailadres in.</span></div>
             <div class="field"><label for="p-telefoon">Telefoonnummer</label><input type="tel" id="p-telefoon" name="telefoon" autocomplete="tel" placeholder="06 12345678" required><span class="error">Vul een geldig telefoonnummer in.</span></div>
+            <div class="field"><label for="p-periode">Wanneer kunt u langskomen? <span class="opt">(optioneel)</span></label><input type="text" id="p-periode" placeholder="Kies een periode" autocomplete="off"><span class="hint">Van–tot: wanneer u tijd heeft voor een eerste afspraak.</span></div>
             <div class="field"><label for="p-toelichting">Toelichting <span class="opt">(optioneel)</span></label><textarea id="p-toelichting" name="toelichting" rows="3" placeholder="Bijv. voorkeur voor een tandarts die Engels spreekt"></textarea></div>
             <label class="consent field"><input type="checkbox" name="akkoord" value="ja" required><span>Ja, Tandartsfinder.nl mag contact met mij opnemen over mijn zoekopdracht en mijn gegevens delen met een praktijk die plek heeft. Zie de <a href="/privacy" target="_blank" rel="noopener">privacyverklaring</a>.<span class="error">U moet hiermee akkoord gaan.</span></span></label>
             <div class="formerror">Versturen is niet gelukt. Controleer uw verbinding en probeer het opnieuw.</div>
@@ -181,12 +172,13 @@
 <footer class="footer">
   <div class="wrap">
     <a class="brand" href="/"><svg class="icon"><use href="#i-tooth"/></svg>tandartsfinder<em>.nl</em></a>
-    <div><a href="#praktijken">Praktijken</a> · <a href="#zoek">Ik zoek een tandarts</a> · <a href="#praktijk-aanmelden">Voor praktijken</a> · <a href="/privacy">Privacy</a> · <a href="mailto:info@tandvacature.nl">Contact</a></div>
+    <div><a href="#zoek">Ik zoek een tandarts</a> · <a href="#praktijk-aanmelden">Voor praktijken</a> · <a href="/privacy">Privacy</a> · <a href="mailto:info@tandvacature.nl">Contact</a></div>
     <p>Tandartsfinder.nl brengt mensen die een tandarts zoeken in contact met praktijken die nieuwe patiënten aannemen. Uw aanmelding gaat rechtstreeks naar de gekozen praktijk. Met spoed hulp nodig? Bel uw praktijk of de spoeddienst in uw regio.</p>
   </div>
 </footer>
 
-<script src="/data/practices.js"></script>
+<script src="/assets/vendor/flatpickr.min.js"></script>
+<script src="/assets/vendor/flatpickr-nl.js"></script>
 <script src="/assets/home.js"></script>
 </body>
 </html>

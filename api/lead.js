@@ -11,6 +11,7 @@ const REQUIRED = {
   clinic: ['praktijknaam', 'naam', 'email', 'telefoon', 'plaats']
 };
 const FIELDS = ['type', 'naam', 'email', 'telefoon', 'toelichting', 'postcode', 'voor_wie', 'situatie',
+  'beschikbaar_van', 'beschikbaar_tot',
   'praktijknaam', 'plaats', 'praktijk_website', 'aantal_tandartsen', 'taal', 'pagina',
   'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid', 'gclid'];
 

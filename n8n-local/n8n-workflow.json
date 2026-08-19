@@ -72,6 +72,8 @@
             "Postcode": "={{ $json.body.postcode }}",
             "For whom": "={{ $json.body.voor_wie }}",
             "Situation": "={{ $json.body.situatie }}",
+            "Available from": "={{ $json.body.beschikbaar_van }}",
+            "Available until": "={{ $json.body.beschikbaar_tot }}",
             "Notes": "={{ $json.body.toelichting }}",
             "Language": "={{ $json.body.taal }}",
             "UTM source": "={{ $json.body.utm_source }}",

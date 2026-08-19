@@ -1,21 +1,16 @@
 (function () {
   var LANG = (document.documentElement.lang || 'nl').slice(0, 2), EN = LANG === 'en';
-  var T = EN
-    ? { pill: 'Accepting new patients', go: 'View & register →', on: 'on', sending: 'Sending…' }
-    : { pill: 'Nu plek voor nieuwe patiënten', go: 'Bekijk & meld aan →', on: 'op', sending: 'Bezig met versturen…' };
-  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var SENDING = EN ? 'Sending…' : 'Bezig met versturen…';
 
-  /* ---- featured practice card(s) ---- */
-  function card(p) {
-    return '<a class="practice" href="' + esc(EN && p.url_en ? p.url_en : p.url) + '">' +
-      '<img src="' + esc(p.image) + '" alt="' + esc(p.name) + '" loading="lazy">' +
-      '<div><span class="pill">' + T.pill + '</span>' +
-      '<h3>' + esc(p.name) + '</h3><p class="loc">' + esc(p.area || p.city) + ' · ' + esc(p.address) + '</p>' +
-      '<ul>' + ((EN && p.usps_en) || p.usps || []).slice(0, 4).map(function (u) { return '<li><svg class="icon"><use href="#i-check"/></svg><span>' + esc(u) + '</span></li>'; }).join('') + '</ul>' +
-      '<div class="foot">' + (p.rating ? '<span class="rating"><span class="stars" aria-hidden="true">★★★★★</span> <b>' + esc(p.rating) + '</b> ' + T.on + ' ' + esc(p.ratingSource || '') + '</span>' : '<span></span>') +
-      '<span class="go">' + T.go + '</span></div></div></a>';
+  /* ---- optional availability period (flatpickr range) ---- */
+  var fp = null, avail = document.getElementById('p-periode');
+  if (avail && window.flatpickr) {
+    fp = flatpickr(avail, {
+      mode: 'range', minDate: 'today', dateFormat: 'Y-m-d',
+      altInput: true, altFormat: 'j M Y',
+      locale: (!EN && flatpickr.l10ns.nl) ? 'nl' : 'default'
+    });
   }
-  document.getElementById('list').innerHTML = (window.PRACTICES || []).filter(function (p) { return p.accepting !== false; }).map(card).join('');
 
   /* ---- lead forms (patient + clinic) → POST /api/lead ---- */
   var params = new URLSearchParams(location.search), attr = {};
@@ -44,10 +39,14 @@
       e.preventDefault();
       if (!valid(form)) { var b = form.querySelector('.bad'); if (b) b.scrollIntoView({ behavior: 'smooth', block: 'center' }); return; }
       var btn = form.querySelector('[type=submit]'), label = btn.textContent, err = form.querySelector('.formerror');
-      btn.disabled = true; btn.textContent = T.sending; err.classList.remove('on');
+      btn.disabled = true; btn.textContent = SENDING; err.classList.remove('on');
       var data = { taal: LANG, pagina: location.href, tijdstip: new Date().toISOString() };
       new FormData(form).forEach(function (v, k) { data[k] = v; });
       Object.assign(data, attr);
+      if (form.id === 'form-patient' && fp && fp.selectedDates.length) {
+        data.beschikbaar_van = fp.formatDate(fp.selectedDates[0], 'Y-m-d');
+        data.beschikbaar_tot = fp.formatDate(fp.selectedDates[fp.selectedDates.length - 1], 'Y-m-d');
+      }
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) { if (!r.ok) throw new Error(r.status); })
         .then(function () {

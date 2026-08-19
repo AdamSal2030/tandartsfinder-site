@@ -12,6 +12,7 @@
 <meta property="og:description" content="View the practice and register in one minute. Practice with room? Register. Free and direct.">
 <meta property="og:image" content="https://tandartsfinder.nl/assets/behandeling.jpg">
 <meta property="og:type" content="website">
+<link rel="stylesheet" href="/assets/vendor/flatpickr.min.css">
 <link rel="stylesheet" href="/assets/style.css">
 <link rel="stylesheet" href="/assets/home.css">
 </head>
@@ -31,7 +32,6 @@
   <div class="wrap">
     <a class="brand" href="/"><svg class="icon"><use href="#i-tooth"/></svg>tandartsfinder<em>.nl</em></a>
     <nav class="nav">
-      <a href="#praktijken">Practices</a>
       <a href="#hoe">How it works</a>
       <a href="#praktijk-aanmelden">For practices</a>
       <a class="lang" href="/" hreflang="nl" title="Lees deze pagina in het Nederlands">NL</a>
@@ -57,16 +57,6 @@
   </div>
 </section>
 
-<section class="section" id="praktijken">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="kicker">Room now</span>
-      <h2>Practices accepting new patients</h2>
-      <p class="intro">View the practice and register directly. Not near you? <a href="#zoek">Leave your details</a> — we search for you.</p>
-    </div>
-    <div class="practices" id="list"></div>
-  </div>
-</section>
 
 <section class="section section--tint lead" id="zoek">
   <div class="wrap">
@@ -93,6 +83,7 @@
             <div class="field"><label for="p-situatie">What is your situation? <span class="opt">(optional)</span></label><select id="p-situatie" name="situatie"><option value="">Choose…</option><option value="geen_tandarts">I have no dentist</option><option value="overstappen">I want to switch</option><option value="verhuisd">I have moved</option><option value="pijn">I am in pain / urgent</option><option value="anders">Other</option></select></div>
             <div class="field"><label for="p-email">Email address</label><input type="email" id="p-email" name="email" autocomplete="email" placeholder="name@example.com" required><span class="error">Please enter a valid email address.</span></div>
             <div class="field"><label for="p-telefoon">Phone number</label><input type="tel" id="p-telefoon" name="telefoon" autocomplete="tel" placeholder="06 12345678" required><span class="error">Please enter a valid phone number.</span></div>
+            <div class="field"><label for="p-periode">When could you visit? <span class="opt">(optional)</span></label><input type="text" id="p-periode" placeholder="Pick a period" autocomplete="off"><span class="hint">From–to: when you have time for a first appointment.</span></div>
             <div class="field"><label for="p-toelichting">Comments <span class="opt">(optional)</span></label><textarea id="p-toelichting" name="toelichting" rows="3" placeholder="E.g. preference for an English-speaking dentist"></textarea></div>
             <label class="consent field"><input type="checkbox" name="akkoord" value="ja" required><span>Yes, Tandartsfinder.nl may contact me about my search request and share my details with a practice that has room. See the <a href="/privacy" target="_blank" rel="noopener">privacy statement (Dutch)</a>.<span class="error">You need to agree to continue.</span></span></label>
             <div class="formerror">Sending failed. Check your connection and try again.</div>
@@ -181,12 +172,12 @@
 <footer class="footer">
   <div class="wrap">
     <a class="brand" href="/"><svg class="icon"><use href="#i-tooth"/></svg>tandartsfinder<em>.nl</em></a>
-    <div><a href="/">Nederlands</a> · <a href="#praktijken">Practices</a> · <a href="#zoek">Find a dentist</a> · <a href="#praktijk-aanmelden">For practices</a> · <a href="/privacy">Privacy (Dutch)</a> · <a href="mailto:info@tandvacature.nl">Contact</a></div>
+    <div><a href="/">Nederlands</a> · <a href="#zoek">Find a dentist</a> · <a href="#praktijk-aanmelden">For practices</a> · <a href="/privacy">Privacy (Dutch)</a> · <a href="mailto:info@tandvacature.nl">Contact</a></div>
     <p>Tandartsfinder.nl connects people looking for a dentist with practices that accept new patients. Your registration goes directly to the chosen practice. Need urgent help? Call your practice or the emergency dental service in your region.</p>
   </div>
 </footer>
 
-<script src="/data/practices.js"></script>
+<script src="/assets/vendor/flatpickr.min.js"></script>
 <script src="/assets/home.js"></script>
 </body>
 </html>
