@@ -12,6 +12,8 @@ assets/home.css, home.js    homepage-only styles + lead forms + availability pic
 privacy.html                → /privacy
 ```
 
+Assets are referenced as `/assets/…?v=<git hash>` for cache-busting — bump the `?v=` value (e.g. to the new commit hash) whenever a css/js asset changes.
+
 Deploy: separate Vercel project (preset Other), domain `tandartsfinder.nl` + `www`. Local: `node dev.js` → http://localhost:3457
 
 ## How a lead flows
