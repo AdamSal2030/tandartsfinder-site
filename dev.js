@@ -8,9 +8,9 @@ http.createServer((req, res) => {
   const url = req.url.split('?')[0];
   if (url === '/api/lead') {
     let body = ''; req.on('data', c => body += c); req.on('end', () => {
-      req.body = JSON.parse(body || '{}');
       res.status = c => { res.statusCode = c; return res; };
       res.json = o => { res.setHeader('Content-Type', 'application/json'); res.end(JSON.stringify(o)); };
+      try { req.body = JSON.parse(body || '{}'); } catch (e) { return res.status(400).json({ error: 'invalid' }); }
       lead(req, res);
     }); return;
   }

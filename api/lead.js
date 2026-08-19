@@ -25,6 +25,9 @@ module.exports = async function (req, res) {
 
   const lead = {};
   for (const k of FIELDS) if (b[k]) lead[k] = b[k];
+  const FORMATS = { beschikbaar_van: /^\d{4}-\d{2}-\d{2}$/, beschikbaar_tot: /^\d{4}-\d{2}-\d{2}$/,
+    beschikbaar_tijd_van: /^\d{2}:\d{2}$/, beschikbaar_tijd_tot: /^\d{2}:\d{2}$/ };
+  for (const k of Object.keys(FORMATS)) if (lead[k] && !FORMATS[k].test(lead[k])) delete lead[k];
   lead.tijdstip = b.tijdstip || new Date().toISOString();
   lead.ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
   console.log('LEAD', JSON.stringify(lead));

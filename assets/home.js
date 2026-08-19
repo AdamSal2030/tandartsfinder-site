@@ -10,6 +10,9 @@
       altInput: true, altFormat: 'j M Y',
       locale: (!EN && flatpickr.l10ns.nl) ? 'nl' : 'default'
     });
+    fp.altInput.id = 'p-periode-view';
+    var dlabel = document.querySelector('label[for=p-periode]');
+    if (dlabel) dlabel.htmlFor = 'p-periode-view';
   }
   var citySel = document.getElementById('p-plaats');
   if (citySel && window.CITIES) citySel.innerHTML += CITIES.map(function (c) { return '<option>' + c + '</option>'; }).join('');
