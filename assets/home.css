@@ -27,6 +27,9 @@
 .field textarea{resize:vertical;min-height:88px}
 .field .opt{font-weight:500;color:var(--muted)}
 .leadform .done h3{margin:0 0 8px}
+.times{display:flex;align-items:center;gap:10px}
+.times span{color:var(--muted)}
+.times input{flex:1;min-width:0}
 
 /* flatpickr — themed to match the site */
 .flatpickr-calendar{font-family:inherit;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow-lg)}
@@ -39,3 +42,6 @@
 .flatpickr-day:hover:not(.selected):not(.startRange):not(.endRange):not(.inRange){background:#f7f9ff;border-color:var(--line)}
 .flatpickr-months .flatpickr-prev-month:hover svg,.flatpickr-months .flatpickr-next-month:hover svg{fill:var(--green)}
 .flatpickr-current-month .flatpickr-monthDropdown-months,.flatpickr-current-month input.cur-year{font-weight:800;color:var(--ink)}
+.flatpickr-calendar.noCalendar.hasTime{width:auto;min-width:140px}
+.flatpickr-time input:hover,.flatpickr-time .flatpickr-am-pm:hover,.flatpickr-time input:focus,.flatpickr-time .flatpickr-am-pm:focus{background:var(--green-soft)}
+.flatpickr-time input.flatpickr-hour,.flatpickr-time input.flatpickr-minute{color:var(--ink)}

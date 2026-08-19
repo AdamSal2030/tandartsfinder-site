@@ -22,5 +22,5 @@ form (`type=patient` | `type=clinic`) → `/api/lead` (validates, honeypot `webs
 - **Vercel**: env var `LEAD_WEBHOOK` = n8n Webhook node Production URL, redeploy.
 - **n8n**: import `n8n-local/n8n-workflow.json`, add Airtable credential, pick the table in both Airtable nodes (base is pre-filled), Publish.
 - **Airtable**: base *Tandartsfinder.nl*, two tables with exactly these columns (all single-line text, `Status` single select):
-  - **Patiënten**: Name, Phone, Email, Postcode, For whom, Situation, Available from, Available until, Notes, Language, UTM source, UTM medium, UTM campaign, UTM content, fbclid, gclid, Page, Submitted at, Status
+  - **Patiënten**: Name, Phone, Email, Postcode, For whom, Situation, Available from, Available until, Available time from, Available time until, Notes, Language, UTM source, UTM medium, UTM campaign, UTM content, fbclid, gclid, Page, Submitted at, Status
   - **Praktijken**: Practice, City, Website, Dentists, Name, Phone, Email, Notes, Language, UTM source, UTM medium, UTM campaign, UTM content, fbclid, gclid, Page, Submitted at, Status

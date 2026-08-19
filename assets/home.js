@@ -11,6 +11,10 @@
       locale: (!EN && flatpickr.l10ns.nl) ? 'nl' : 'default'
     });
   }
+  ['p-tijd-van', 'p-tijd-tot'].forEach(function (tid) {
+    var el = document.getElementById(tid);
+    if (el && window.flatpickr) flatpickr(el, { enableTime: true, noCalendar: true, dateFormat: 'H:i', time_24hr: true, minuteIncrement: 15 });
+  });
 
   /* ---- lead forms (patient + clinic) → POST /api/lead ---- */
   var params = new URLSearchParams(location.search), attr = {};
@@ -46,6 +50,12 @@
       if (form.id === 'form-patient' && fp && fp.selectedDates.length) {
         data.beschikbaar_van = fp.formatDate(fp.selectedDates[0], 'Y-m-d');
         data.beschikbaar_tot = fp.formatDate(fp.selectedDates[fp.selectedDates.length - 1], 'Y-m-d');
+      }
+      if (form.id === 'form-patient') {
+        [['beschikbaar_tijd_van', 'p-tijd-van'], ['beschikbaar_tijd_tot', 'p-tijd-tot']].forEach(function (m) {
+          var el = document.getElementById(m[1]);
+          if (el && el.value) data[m[0]] = el.value;
+        });
       }
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) { if (!r.ok) throw new Error(r.status); })
