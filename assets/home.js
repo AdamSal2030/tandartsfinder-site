@@ -66,6 +66,7 @@
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) { if (!r.ok) throw new Error(r.status); })
         .then(function () {
+          if (window.tfTrackLead) window.tfTrackLead(form.id === 'form-clinic' ? 'clinic' : 'patient');   // bare event, no form data
           form.querySelector('.fields').hidden = true;
           form.querySelector('.done').hidden = false;
           form.scrollIntoView({ behavior: 'smooth', block: 'center' });
