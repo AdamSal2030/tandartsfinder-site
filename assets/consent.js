@@ -85,8 +85,10 @@
     '.tf-cc button.ok{background:#0e9f77;border-color:#0e9f77;color:#fff}.tf-cc section{flex:1 1 100%;display:none;border-top:1px solid #e2e8f0;padding-top:14px}' +
     '.tf-cc section.on{display:block}.tf-cc label{display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}@media(max-width:640px){.tf-cc nav{width:100%}.tf-cc nav button{flex:1}}';
 
-  function banner() {
-    if (document.querySelector('.tf-cc')) return;
+  // expand: open with the settings panel visible (used by the "Cookievoorkeuren" link).
+  function banner(expand) {
+    var open = document.querySelector('.tf-cc');
+    if (open) { if (expand) open.querySelector('section').classList.add('on'); return; }
     var st = document.createElement('style'); st.textContent = CSS; document.head.appendChild(st);
     var el = document.createElement('div');
     el.className = 'tf-cc'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-label', t.label);
@@ -96,6 +98,7 @@
       '<section><label><input type="checkbox" checked disabled> <span>' + t.need + '</span></label>' +
       '<label><input type="checkbox" id="tf-mk"' + (granted ? ' checked' : '') + '> <span>' + t.mk + '</span></label>' +
       '<button type="button" class="ok" data-a="save">' + t.save + '</button></section></div>';
+    if (expand) el.querySelector('section').classList.add('on');
     document.body.appendChild(el);
     document.body.style.paddingBottom = el.offsetHeight + 'px';   // measured once; banner height changes on resize are rare and harmless
     el.addEventListener('click', function (e) {
@@ -112,7 +115,7 @@
     document.addEventListener('click', function (e) {
       if (!e.target.closest('[data-cookies]')) return;
       e.preventDefault();
-      banner();
+      banner(true);
     });
   }
   document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', boot) : boot();
