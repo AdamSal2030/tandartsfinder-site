@@ -7,7 +7,7 @@
    Moet als eerste script in <head> staan (synchroon), zodat de consent-default vóór GTM staat. */
 (function () {
   'use strict';
-  var META_PIXEL_ID = '';               // bv. '1234567890'
+  var META_PIXEL_ID = '1163057512822601';
   var GTM_ID        = 'GTM-M832V8XP';
   var KEY = 'tf_consent_v1', DAYS = 180;
   var GRANTED = { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' };
