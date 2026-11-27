@@ -2,13 +2,14 @@
    Gedeeld bestand: identiek in tandartsfinder en tandartsfinder-site — wijzig beide.
    - Google (GTM): laadt direct, maar met alle toestemming op 'denied' → alleen cookieloze pings
      tot de bezoeker akkoord geeft (advanced consent mode).
-   - Meta Pixel: laadt pas NA toestemming (Meta kent geen cookieloze modus).
+   - Meta Pixel en Microsoft Clarity: laden pas NA toestemming.
    Nooit formulierdata (situatie/postcode) naar Meta/Google sturen — alleen een kaal Lead-event.
    Moet als eerste script in <head> staan (synchroon), zodat de consent-default vóór GTM staat. */
 (function () {
   'use strict';
   var META_PIXEL_ID = '1163057512822601';
   var GTM_ID        = 'GTM-M832V8XP';
+  var CLARITY_ID    = 'z7xhhl4tay';
   var KEY = 'tf_consent_v1', DAYS = 180;
   var GRANTED = { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted', analytics_storage: 'granted' };
   var DENIED  = { ad_storage: 'denied',  ad_user_data: 'denied',  ad_personalization: 'denied',  analytics_storage: 'denied' };
@@ -52,12 +53,20 @@
         fbq('init', META_PIXEL_ID); fbq('track', 'PageView');
       }
     }
+    if (CLARITY_ID) {
+      if (!window.clarity) {
+        window.clarity = function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+        script('https://www.clarity.ms/tag/' + CLARITY_ID);
+      }
+      clarity('consent');
+    }
     queue.forEach(function (fn) { fn(); }); queue = [];
   }
   function revoke() {
     if (!granted) return; granted = false;
     gtag('consent', 'update', DENIED);
     if (window.fbq) fbq('consent', 'revoke');
+    if (window.clarity) clarity('consent', false);
   }
 
   // Alleen na een geslaagde verzending aanroepen. type: 'patient' | 'clinic'.
@@ -77,11 +86,11 @@
     nl: { label: 'Cookievoorkeuren', intro: '<strong>Wij gebruiken cookies.</strong> Noodzakelijke cookies laten deze pagina werken. Met uw toestemming plaatsen we ook cookies voor marketing &amp; meting, zodat we zien welke advertentie tot een aanmelding leidt.',
           privacy: 'Lees onze privacyverklaring', href: '/privacy', settings: 'Instellingen', deny: 'Weigeren', allow: 'Alles accepteren', save: 'Keuze opslaan',
           need: '<strong>Noodzakelijk</strong> — nodig om de pagina en het formulier te laten werken. Altijd aan.',
-          mk: '<strong>Marketing &amp; meting</strong> — Meta Pixel en Google tag, om advertenties te meten en te verbeteren.' },
+          mk: '<strong>Marketing &amp; meting</strong> — Meta Pixel, Google tag en Microsoft Clarity, om advertenties en de pagina te meten en te verbeteren.' },
     en: { label: 'Cookie preferences', intro: '<strong>We use cookies.</strong> Necessary cookies make this page work. With your consent we also set cookies for marketing &amp; measurement, so we can see which ad leads to a registration.',
           privacy: 'Read our privacy policy', href: '/privacy', settings: 'Settings', deny: 'Decline', allow: 'Accept all', save: 'Save choice',
           need: '<strong>Necessary</strong> — required for the page and the form to work. Always on.',
-          mk: '<strong>Marketing &amp; measurement</strong> — Meta Pixel and Google tag, to measure and improve ads.' }
+          mk: '<strong>Marketing &amp; measurement</strong> — Meta Pixel, Google tag and Microsoft Clarity, to measure and improve ads and this page.' }
   };
   var t = T[(document.documentElement.lang || 'nl').slice(0, 2)] || T.nl;
 
