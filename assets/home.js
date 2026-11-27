@@ -24,7 +24,18 @@
 
   /* ---- lead forms (patient + clinic) → POST /api/lead ---- */
   var params = new URLSearchParams(location.search), attr = {};
-  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid', 'gclid'].forEach(function (k) { if (params.get(k)) attr[k] = params.get(k); });
+  ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'gbraid', 'wbraid'].forEach(function (k) { if (params.get(k)) attr[k] = params.get(k); });
+
+  function cookie(name) { var m = document.cookie.match('(?:^|; )' + name + '=([^;]*)'); return m ? m[1] : ''; }
+  function metaContext() {   // shared event id (Pixel + Conversions API dedup) and browser ids, only with marketing consent
+    var consent = !!(window.tfMarketingConsent && window.tfMarketingConsent());
+    return {
+      event_id: window.tfEventId ? window.tfEventId() : '',
+      marketing_consent: consent ? 'ja' : 'nee',
+      fbp: consent ? cookie('_fbp') : '',
+      fbc: consent ? cookie('_fbc') : ''
+    };
+  }
 
   function mark(el, bad) { var f = el.closest('.field'); if (f) f.classList.toggle('bad', !!bad); return !bad; }
   function valid(form) {
@@ -52,7 +63,7 @@
       btn.disabled = true; btn.textContent = SENDING; err.classList.remove('on');
       var data = { taal: LANG, pagina: location.href, tijdstip: new Date().toISOString() };
       new FormData(form).forEach(function (v, k) { data[k] = v; });
-      Object.assign(data, attr);
+      Object.assign(data, attr, metaContext());
       if (form.id === 'form-patient' && fp && fp.selectedDates.length) {
         data.beschikbaar_van = fp.formatDate(fp.selectedDates[0], 'Y-m-d');
         data.beschikbaar_tot = fp.formatDate(fp.selectedDates[fp.selectedDates.length - 1], 'Y-m-d');
@@ -66,7 +77,7 @@
       fetch('/api/lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
         .then(function (r) { if (!r.ok) throw new Error(r.status); })
         .then(function () {
-          if (window.tfTrackLead) window.tfTrackLead(form.id === 'form-clinic' ? 'clinic' : 'patient');   // bare event, no form data
+          if (window.tfTrackLead) window.tfTrackLead(form.id === 'form-clinic' ? 'clinic' : 'patient', data.event_id);   // bare event, no form data
           form.querySelector('.fields').hidden = true;
           form.querySelector('.done').hidden = false;
           form.scrollIntoView({ behavior: 'smooth', block: 'center' });

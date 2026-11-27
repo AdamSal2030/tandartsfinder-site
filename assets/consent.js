@@ -60,11 +60,17 @@
     if (window.fbq) fbq('consent', 'revoke');
   }
 
-  // type: 'patient' | 'clinic' — GTM-trigger: Custom Event 'lead_submit' (filter op lead_type).
-  window.tfTrackLead = function (type) {
-    var fire = function () { if (window.fbq) fbq('track', 'Lead'); };
+  // Alleen na een geslaagde verzending aanroepen. type: 'patient' | 'clinic'.
+  // eventId is hetzelfde id dat de server naar de Meta Conversions API stuurt → Meta ontdubbelt Pixel + CAPI.
+  // GTM-trigger: Custom Event 'lead_submit' (filter op lead_type; event_id beschikbaar als data layer variable).
+  window.tfTrackLead = function (type, eventId) {
+    var fire = function () { if (window.fbq) fbq('track', 'Lead', {}, { eventID: eventId }); };
     granted ? fire() : queue.push(fire);
-    window.dataLayer.push({ event: 'lead_submit', lead_type: type || 'patient' });
+    window.dataLayer.push({ event: 'lead_submit', lead_type: type || 'patient', event_id: eventId });
+  };
+  window.tfMarketingConsent = function () { return granted; };
+  window.tfEventId = function () {
+    return 'lead-' + Date.now().toString(36) + '-' + Math.random().toString(36).slice(2, 10);
   };
 
   var T = {
