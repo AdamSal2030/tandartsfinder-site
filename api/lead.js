@@ -6,6 +6,8 @@
 //   LEAD_FROM        optional sender, default 'Tandartsfinder <leads@tandartsfinder.nl>' (domain must be verified in Resend)
 // With nothing configured the lead is only written to the Vercel function logs.
 
+const sendMetaLead = require('./_meta-capi');   // Meta Conversions API, see that file for its env vars
+
 const REQUIRED = {
   patient: ['naam', 'email', 'telefoon', 'postcode', 'plaats'],
   clinic: ['praktijknaam', 'naam', 'email', 'telefoon', 'plaats']
@@ -13,7 +15,7 @@ const REQUIRED = {
 const FIELDS = ['type', 'naam', 'email', 'telefoon', 'toelichting', 'postcode', 'voor_wie', 'situatie',
   'beschikbaar_van', 'beschikbaar_tot', 'beschikbaar_tijd_van', 'beschikbaar_tijd_tot',
   'praktijknaam', 'plaats', 'praktijk_website', 'aantal_tandartsen', 'taal', 'pagina',
-  'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'fbclid', 'gclid'];
+  'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid', 'gclid', 'gbraid', 'wbraid', 'event_id'];
 
 module.exports = async function (req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'method' });
@@ -30,6 +32,7 @@ module.exports = async function (req, res) {
   for (const k of Object.keys(FORMATS)) if (lead[k] && !FORMATS[k].test(lead[k])) delete lead[k];
   lead.tijdstip = b.tijdstip || new Date().toISOString();
   lead.ip = (req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  const meta = { marketing_consent: b.marketing_consent, fbp: b.fbp, fbc: b.fbc };
   console.log('LEAD', JSON.stringify(lead));
 
   const jobs = [];
@@ -53,7 +56,7 @@ module.exports = async function (req, res) {
     }));
   }
 
-  const results = await Promise.allSettled(jobs);
+  const [results] = await Promise.all([Promise.allSettled(jobs), sendMetaLead({ ...lead, ...meta }, req)]);   // Meta failure never fails the lead
   const failed = results.filter(r => r.status === 'rejected' || (r.value && !r.value.ok));
   if (failed.length) {
     console.error('LEAD DELIVERY FAILED', failed.map(r => r.reason || r.value.status));
